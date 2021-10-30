@@ -1,5 +1,4 @@
 import {
-  Button,
   IconButton,
   Paper,
   Table,
@@ -13,8 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { MdDelete, MdModeEdit, MdCreateNewFolder } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { MdDelete, MdModeEdit } from "react-icons/md";
 import TablePaginationActions from "./Details/TablePaginationActions";
 
 const ListDetails = () => {
@@ -59,89 +57,91 @@ const ListDetails = () => {
   //Entrada para borrar
   const handleDelete = (e) => {};
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">
-              <Typography variant="h5">Listado de errores</Typography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-      </Table>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Error</TableCell>
-            <TableCell align="center">Estado página</TableCell>
-            <TableCell align="center">Fecha</TableCell>
-            <TableCell align="center">Edit</TableCell>
-            <TableCell align="center">Delete</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {(rowsPerPage > 0
-            ? mockedRows.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-            : mockedRows
-          ).map((rowsData) => (
-            <TableRow key={rowsData.id}>
-              <TableCell component="th" scope="row">
-                {rowsData.name}
-              </TableCell>
+    <>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
               <TableCell align="center">
-                {rowsData.image && (
-                  <img
-                    src={rowsData.image}
-                    alt={rowsData.name}
-                    style={{
-                      maxWidth: "8rem",
-                      boxShadow: "0px 0px 8px 3px rgba(0,0,0,0.7)",
-                      WebkitBoxShadow: "0px 0px 8px 3px rgba(0,0,0,0.7)",
-                      MozBoxShadow: "0px 0px 8px 3px rgba(0,0,0,0.7)",
-                    }}
-                  />
-                )}
-              </TableCell>
-              <TableCell align="center">{rowsData.createdAt}</TableCell>
-              <TableCell align="center">
-                <IconButton children={<MdModeEdit />} onClick={handleEdit} />
-              </TableCell>
-              <TableCell align="center">
-                <IconButton children={<MdDelete />} onClick={handleDelete} />
+                <Typography variant="h5">Listado de errores</Typography>
               </TableCell>
             </TableRow>
-          ))}
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={5} />
+          </TableHead>
+        </Table>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">Error</TableCell>
+              <TableCell align="center">Estado página</TableCell>
+              <TableCell align="center">Fecha</TableCell>
+              <TableCell align="center">Edit</TableCell>
+              <TableCell align="center">Delete</TableCell>
             </TableRow>
-          )}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={3}
-              count={mockedRows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  "aria-label": "rows per page",
-                },
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {(rowsPerPage > 0
+              ? mockedRows.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+              : mockedRows
+            ).map((rowsData) => (
+              <TableRow key={rowsData.id}>
+                <TableCell component="th" scope="row">
+                  {rowsData.name}
+                </TableCell>
+                <TableCell align="center">
+                  {rowsData.image && (
+                    <img
+                      src={rowsData.image}
+                      alt={rowsData.name}
+                      style={{
+                        maxWidth: "8rem",
+                        boxShadow: "0px 0px 8px 3px rgba(0,0,0,0.7)",
+                        WebkitBoxShadow: "0px 0px 8px 3px rgba(0,0,0,0.7)",
+                        MozBoxShadow: "0px 0px 8px 3px rgba(0,0,0,0.7)",
+                      }}
+                    />
+                  )}
+                </TableCell>
+                <TableCell align="center">{rowsData.createdAt}</TableCell>
+                <TableCell align="center">
+                  <IconButton children={<MdModeEdit />} onClick={handleEdit} />
+                </TableCell>
+                <TableCell align="center">
+                  <IconButton children={<MdDelete />} onClick={handleDelete} />
+                </TableCell>
+              </TableRow>
+            ))}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={5} />
+              </TableRow>
+            )}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                colSpan={3}
+                count={mockedRows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: {
+                    "aria-label": "rows per page",
+                  },
+                  native: true,
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 
