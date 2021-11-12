@@ -1,6 +1,5 @@
 import {
   IconButton,
-  Modal,
   Paper,
   Table,
   TableBody,
@@ -12,10 +11,10 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CgScreen } from "react-icons/cg";
+import PortalModal from "./Details/PortalModal";
 import TablePaginationActions from "./Details/TablePaginationActions";
 
 const style = {
@@ -51,7 +50,7 @@ const ListDetails = () => {
 
   const peticionModal = async () => {
     const res = await axios.post(`http://localhost:8080/infomonitor/info`, {
-        num: 1,
+        num: 0,
         page: localnum,
       }),
       data = await res.data;
@@ -114,7 +113,7 @@ const ListDetails = () => {
                 )
               : mockedRows
             ).map((rowsData) => (
-              <TableRow key={rowsData.id}>
+              <TableRow key={rowsData.createdAt}>
                 <TableCell component="th" scope="row">
                   {rowsData.name}
                 </TableCell>
@@ -152,21 +151,12 @@ const ListDetails = () => {
           </TableFooter>
         </Table>
       </TableContainer>
-      <Modal
+      <PortalModal
         open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <iframe
-            src={`${pagina}`}
-            frameborder="0"
-            title="página web elegida"
-            style={{ width: "inherit", height: "inherit" }}
-          ></iframe>
-        </Box>
-      </Modal>
+        handleClose={handleClose}
+        style={style}
+        pagina={pagina}
+      />
     </>
   );
 };

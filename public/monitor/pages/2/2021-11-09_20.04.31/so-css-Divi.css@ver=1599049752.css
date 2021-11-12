@@ -1,0 +1,146 @@
+.et-cart-info {
+display:none;
+}
+
+/*menu supoerior*/
+
+#et-top-navigation {
+    font-weight: 400;
+}
+
+
+/*footer*/
+#footer-bottom {
+    padding: 15px 0 5px;
+    background-color: #1f1f1f;
+    background-color: rgba(0,0,0,.32);
+    display: none;
+}
+
+.et_pb_bg_layout_dark .et_pb_slide_description {
+    text-shadow: 0 1px 3px #fefefe;
+}
+
+
+.et_pb_tabs_controls li a {
+    display: table-cell;
+    
+    padding-top: 6px;
+    padding-right: 22px;
+    padding-bottom: 6px;
+    padding-left: 15px;
+    color: #666;
+    line-height: inherit;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.et_pb_tabs .et_pb_tabs_controls li.et_pb_tab_0 a {
+    color: #f9f9f9!important;
+}
+
+#footer-info {
+    float: left;
+    padding-bottom: 10px;
+    color: #666;
+    text-align: left;
+    display: none;
+}
+
+
+
+/*contact form 7*/
+
+
+
+
+.wpcf7-text, .wpcf7-textarea, .wpcf7-captchar {
+    background-color: #e0e6ec!important;
+    border: none!important;
+    width: 100%!important;
+    -moz-border-radius: 0!important;
+    -webkit-border-radius: 0!important;
+    border-radius: 0!important;
+    font-size: 14px;
+    color: #003f72!important;
+    padding: 9px!important;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+	font-family: roboto;
+}
+.wpcf7-submit {
+    color: #fff!important;
+    margin: -50px auto 0;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    padding: 6px 10px;
+    line-height: 1.7em;
+    background: #003f72;
+    border: 2px solid;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+    border-radius: 10px;
+  
+
+}
+.wpcf7-submit:hover {
+background-color: #eee;
+border-color:#eee;
+}
+
+.woocommerce .woocommerce-error, .woocommerce .woocommerce-info, .woocommerce .woocommerce-message {
+    background: #840000;
+}
+
+.woocommerce-info::before {
+    color: #840000;
+}
+
+#sidebar {
+    padding-bottom: 28px;
+    display: none;
+}
+
+/*** Take out the divider line between content and sidebar ***/
+#main-content .container:before {background: none;}
+ 
+/*** Hide Sidebar ***/
+#sidebar {display:none;}
+ 
+/*** Expand the content area to fullwidth ***/
+@media (min-width: 981px){
+#left-area {
+    width: 100%;
+    padding: 23px 0px 0px !important;
+    float: none !important;
+}
+	
+	
+/*** controles pestaña desplegable ***/	
+	
+	.nav li ul {
+    visibility: hidden;
+    z-index: 9999;
+    width: 180px;
+    border-top: 3px solid #2ea3f2;
+    opacity: 0;
+    background: #fff;
+    -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 2px 5px rgba(0,0,0,.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,.1);
+}
+	
+	
+/*** controles Responsive ***/		
+	@media (min-width: 981px){
+.et_header_style_left #et-top-navigation nav>ul>li>a, .et_header_style_split #et-top-navigation nav>ul>li>a {
+    padding-bottom: 20px;
+}}
