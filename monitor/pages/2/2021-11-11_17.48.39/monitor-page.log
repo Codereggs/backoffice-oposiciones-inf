@@ -1,0 +1,15 @@
+--2021-11-11 17:48:43--  https://oposicionesdeinfantilamedida.com/
+Resolving oposicionesdeinfantilamedida.com... 198.20.115.3
+Connecting to oposicionesdeinfantilamedida.com|198.20.115.3|:443... connected.
+WARNING: cannot verify oposicionesdeinfantilamedida.com's certificate, issued by `/C=BE/O=GlobalSign nv-sa/CN=AlphaSSL CA - SHA256 - G2':
+  Issued certificate has expired.
+WARNING: no certificate subject alternative name matches
+	requested host name `oposicionesdeinfantilamedida.com'.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: https://oposicionesdeinfantilamedida.com/site/ [following]
+--2021-11-11 17:48:43--  https://oposicionesdeinfantilamedida.com/site/
+Reusing existing connection to oposicionesdeinfantilamedida.com:443.
+HTTP request sent, awaiting response... 500 Internal Server Error
+2021-11-11 17:48:46 ERROR 500: Internal Server Error.
+
+Converted 0 files in 0 seconds.

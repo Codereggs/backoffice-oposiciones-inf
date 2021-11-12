@@ -1,5 +1,6 @@
 import {
   IconButton,
+  Modal,
   Paper,
   Table,
   TableBody,
@@ -11,11 +12,27 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import { Box } from "@mui/system";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import TablePaginationActions from "./Details/TablePaginationActions";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "90vw",
+  height: "90vh",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 const ListDetails = () => {
+  const [open, setOpen] = React.useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [mockedRows, setMockedRows] = useState([
@@ -40,7 +57,20 @@ const ListDetails = () => {
       createdAt: "2021-08-28T18:25:50.000000Z",
     },
   ]);
+  const [pagina, setPagina] = useState(null);
 
+  const peticion = async () => {
+    const res = await axios.post(`http://localhost:8080/infomonitor/info`, {
+        num: 1,
+        page: 1,
+      }),
+      data = await res.data;
+    setPagina(data);
+  };
+
+  useEffect(() => {
+    peticion();
+  }, []);
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - mockedRows.length) : 0;
 
@@ -52,10 +82,11 @@ const ListDetails = () => {
     setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
   };
-  //Entrada para editar
-  const handleEdit = (e) => {};
-  //Entrada para borrar
-  const handleDelete = (e) => {};
+  //Entrada para ver
+  const handleModal = () => setOpen(true);
+  //Cerrar
+  const handleClose = () => setOpen(false);
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -74,8 +105,7 @@ const ListDetails = () => {
               <TableCell align="center">Error</TableCell>
               <TableCell align="center">Estado página</TableCell>
               <TableCell align="center">Fecha</TableCell>
-              <TableCell align="center">Edit</TableCell>
-              <TableCell align="center">Delete</TableCell>
+              <TableCell align="center">View</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -106,10 +136,7 @@ const ListDetails = () => {
                 </TableCell>
                 <TableCell align="center">{rowsData.createdAt}</TableCell>
                 <TableCell align="center">
-                  <IconButton children={<MdModeEdit />} onClick={handleEdit} />
-                </TableCell>
-                <TableCell align="center">
-                  <IconButton children={<MdDelete />} onClick={handleDelete} />
+                  <IconButton children={<MdModeEdit />} onClick={handleModal} />
                 </TableCell>
               </TableRow>
             ))}
@@ -141,6 +168,21 @@ const ListDetails = () => {
           </TableFooter>
         </Table>
       </TableContainer>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <iframe
+            srcdoc={pagina}
+            frameborder="0"
+            title="página web elegida"
+            style={{ width: "inherit", height: "inherit" }}
+          ></iframe>
+        </Box>
+      </Modal>
     </>
   );
 };

@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+#other important items
+/monitor/monitor.sh
+/monitor/monitor-pages.txt
+
 # testing
 /coverage
 
