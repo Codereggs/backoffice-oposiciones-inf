@@ -7,39 +7,20 @@ const fs = require("fs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//Variables
-var files1 = fs.readdirSync("./monitor/pages/1"),
-  files2 = fs.readdirSync("./monitor/pages/2"),
-  files3 = fs.readdirSync("./monitor/pages/3");
-
-let data = [];
-
 //Endpoints
 app.get("/infomonitor/page1", (req, res) => {
-  files1.forEach((e) => {
-    let objeto = { createdAt: e };
-    data.push(objeto);
-  });
-  res.status(200).send(data);
-  data = [];
+  let datos = accesarPage(1);
+  res.status(200).send(datos);
 });
 
 app.get("/infomonitor/page2", (req, res) => {
-  files2.forEach((e) => {
-    let objeto = { createdAt: e };
-    data.push(objeto);
-  });
-  res.status(200).send(data);
-  data = [];
+  let datos = accesarPage(2);
+  res.status(200).send(datos);
 });
 
 app.get("/infomonitor/page3", (req, res) => {
-  files3.forEach((e) => {
-    let objeto = { createdAt: e };
-    data.push(objeto);
-  });
-  res.status(200).send(data);
-  data = [];
+  let datos = accesarPage(3);
+  res.status(200).send(datos);
 });
 
 app.post("/infomonitor/info", (req, res) => {
@@ -55,21 +36,33 @@ app.listen(PORT, console.log(`Server started on port ${PORT}`));
 
 //Función Buscar Dirección de la carpeta
 const directionMonitor = (num, where) => {
-  var searchPage = fs.readdirSync(`./monitor/pages/${where}`);
-  var index = searchPage[num];
-  var dir = `/monitor/pages/${where}/${index}`;
+  let searchPage = fs.readdirSync(`./monitor/pages/${where}`);
+  let index = searchPage[num];
+  let dir = `/monitor/pages/${where}/${index}`;
   return dir;
 };
 
-//Buscar HTML
-/* const accesarPage = (num, where) => {
-  const fs = require("fs");
-  var searchPage = fs.readdirSync(`./src/monitor/pages/${where}`);
-  var index = searchPage[num];
-  var resultPage = fs.readdirSync(`./src/monitor/pages/${where}/${index}`);
-  var indexHtml = resultPage.indexOf("index.html");
-  let fs_data = fs.readFileSync(
-    `./src/monitor/pages/${where}/${index}/${resultPage[indexHtml]}`
-  );
-  return fs_data;
-}; */
+//Verificar que exista index.html
+const accesarPage = (num) => {
+  let allData = [];
+  let searchPage = fs.readdirSync(`./monitor/pages/${num}`);
+
+  searchPage.forEach((e) => {
+    try {
+      fs.existsSync(`./monitor/pages/${num}/${e}/index.html`)
+        ? allData.push({
+            id: searchPage.indexOf(e),
+            createdAt: e,
+            status: true,
+          })
+        : allData.push({
+            id: searchPage.indexOf(e),
+            createdAt: e,
+            status: false,
+          });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+  return allData;
+};
