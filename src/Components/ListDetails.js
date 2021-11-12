@@ -15,7 +15,7 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { MdDelete, MdModeEdit } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
 import TablePaginationActions from "./Details/TablePaginationActions";
 
 const style = {
@@ -59,8 +59,8 @@ const ListDetails = () => {
   ]);
   const [pagina, setPagina] = useState(null);
 
-  const peticion = async () => {
-    const res = await axios.post(`http://localhost:8080/infomonitor/info`, {
+  const peticionModal = async () => {
+    const res = await axios.post(`/infomonitor/info`, {
         num: 1,
         page: 1,
       }),
@@ -68,8 +68,14 @@ const ListDetails = () => {
     setPagina(data);
   };
 
+  const reqPage = async () => {
+    const res = await axios.get(`/infomonitor/page${"1"}`),
+      data = await res.data;
+    setMockedRows(...data);
+  };
   useEffect(() => {
-    peticion();
+    peticionModal();
+    reqPage();
   }, []);
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - mockedRows.length) : 0;
