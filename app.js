@@ -45,6 +45,7 @@ app.get("/infomonitor/page3", (req, res) => {
 app.post("/infomonitor/info", (req, res) => {
   var num = req.body;
   var direction = directionMonitor(num.num, num.page);
+  console.log(direction);
   res.status(200).send(direction);
 });
 

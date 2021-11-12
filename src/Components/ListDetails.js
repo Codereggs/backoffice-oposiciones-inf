@@ -15,7 +15,7 @@ import {
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { MdModeEdit } from "react-icons/md";
+import { CgScreen } from "react-icons/cg";
 import TablePaginationActions from "./Details/TablePaginationActions";
 
 const style = {
@@ -38,7 +38,11 @@ const ListDetails = () => {
   const [mockedRows, setMockedRows] = useState([
     {
       0: "2021-08-28T18:23:35.000000Z",
+    },
+    {
       1: "2021-08-28T18:23:35.000000Z",
+    },
+    {
       2: "2021-08-28T18:23:35.000000Z",
     },
   ]);
@@ -56,10 +60,7 @@ const ListDetails = () => {
   const reqPage = async () => {
     const res = await axios.get(`http://localhost:8080/infomonitor/page${"1"}`),
       data = await res.data;
-    console.log(data);
     setMockedRows(data);
-    console.log(mockedRows);
-    /*     setMockedRows(...data); */
   };
   useEffect(() => {
     peticionModal();
@@ -98,7 +99,6 @@ const ListDetails = () => {
           <TableHead>
             <TableRow>
               <TableCell align="center">Error</TableCell>
-              <TableCell align="center">Estado página</TableCell>
               <TableCell align="center">Fecha</TableCell>
               <TableCell align="center">View</TableCell>
             </TableRow>
@@ -115,23 +115,9 @@ const ListDetails = () => {
                 <TableCell component="th" scope="row">
                   {rowsData.name}
                 </TableCell>
-                <TableCell align="center">
-                  {rowsData.image && (
-                    <img
-                      src={rowsData.image}
-                      alt={rowsData.name}
-                      style={{
-                        maxWidth: "8rem",
-                        boxShadow: "0px 0px 8px 3px rgba(0,0,0,0.7)",
-                        WebkitBoxShadow: "0px 0px 8px 3px rgba(0,0,0,0.7)",
-                        MozBoxShadow: "0px 0px 8px 3px rgba(0,0,0,0.7)",
-                      }}
-                    />
-                  )}
-                </TableCell>
                 <TableCell align="center">{rowsData.createdAt}</TableCell>
                 <TableCell align="center">
-                  <IconButton children={<MdModeEdit />} onClick={handleModal} />
+                  <IconButton children={<CgScreen />} onClick={handleModal} />
                 </TableCell>
               </TableRow>
             ))}
@@ -171,7 +157,7 @@ const ListDetails = () => {
       >
         <Box sx={style}>
           <iframe
-            src={pagina}
+            src={`${pagina}`}
             frameborder="0"
             title="página web elegida"
             style={{ width: "inherit", height: "inherit" }}
