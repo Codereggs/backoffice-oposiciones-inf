@@ -64,6 +64,7 @@ const ListDetails = () => {
   useEffect(() => {
     peticionModal();
     reqPage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - mockedRows.length) : 0;
