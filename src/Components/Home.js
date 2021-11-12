@@ -1,5 +1,79 @@
+import Grid from "@material-ui/core/Grid";
+import CardsDashboard from "./Details/CardsDashboard";
+import { MdWebAsset } from "react-icons/md";
+
 const Home = () => {
-  return <div>Inicio</div>;
+  const iconStyle = {
+    fontSize: "5rem",
+  };
+  let data = [
+    {
+      card1: (
+        <Grid item xs={12} sm={3}>
+          <CardsDashboard
+            titulo={"Página 1"}
+            imagen={<MdWebAsset style={iconStyle} />}
+            link={"/pagelist"}
+            key={100}
+          />
+        </Grid>
+      ),
+    },
+    {
+      card2: (
+        <Grid item xs={12} sm={3}>
+          <CardsDashboard
+            titulo={"Página 2"}
+            imagen={<MdWebAsset style={iconStyle} />}
+            link={"/pagelist"}
+            key={200}
+          />
+        </Grid>
+      ),
+    },
+    {
+      card3: (
+        <Grid item xs={12} sm={3}>
+          <CardsDashboard
+            titulo={"Página 3"}
+            imagen={<MdWebAsset style={iconStyle} />}
+            link={"/pagelist"}
+            key={300}
+          />
+        </Grid>
+      ),
+    },
+  ];
+
+  const style = {
+    textAlign: "center",
+    width: "100vw",
+    height: "100vh",
+    backgroundColor: "var(--color-primary)",
+    color: "#fff",
+  };
+
+  const mainStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: "2rem",
+    height: "70vh",
+  };
+
+  return (
+    <div style={style}>
+      <main style={mainStyle}>
+        <Grid container spacing={2} style={{ justifyContent: "center" }}>
+          {data.map((el) => {
+            return Object.values(el)[0];
+          })}
+        </Grid>
+      </main>
+      <footer></footer>
+    </div>
+  );
 };
 
 export default Home;
