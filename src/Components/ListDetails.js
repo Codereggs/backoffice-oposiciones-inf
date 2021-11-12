@@ -37,30 +37,15 @@ const ListDetails = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [mockedRows, setMockedRows] = useState([
     {
-      id: 1,
-      name: "Error 505",
-      image: "http://ongapi.alkemy.org/storage/c1NyJKnQtO.jpeg",
-      createdAt: "2021-08-28T18:23:35.000000Z",
-    },
-
-    {
-      id: 2,
-      name: "Error 500",
-      image: "http://ongapi.alkemy.org/storage/AmrSwNshrt.jpeg",
-      createdAt: "2021-08-28T18:20:47.000000Z",
-    },
-
-    {
-      id: 3,
-      name: "Error 500",
-      image: "http://ongapi.alkemy.org/storage/c1NyJKnQtO.jpeg",
-      createdAt: "2021-08-28T18:25:50.000000Z",
+      0: "2021-08-28T18:23:35.000000Z",
+      1: "2021-08-28T18:23:35.000000Z",
+      2: "2021-08-28T18:23:35.000000Z",
     },
   ]);
   const [pagina, setPagina] = useState(null);
 
   const peticionModal = async () => {
-    const res = await axios.post(`/infomonitor/info`, {
+    const res = await axios.post(`http://localhost:8080/infomonitor/info`, {
         num: 1,
         page: 1,
       }),
@@ -69,9 +54,12 @@ const ListDetails = () => {
   };
 
   const reqPage = async () => {
-    const res = await axios.get(`/infomonitor/page${"1"}`),
+    const res = await axios.get(`http://localhost:8080/infomonitor/page${"1"}`),
       data = await res.data;
-    setMockedRows(...data);
+    console.log(data);
+    setMockedRows(data);
+    console.log(mockedRows);
+    /*     setMockedRows(...data); */
   };
   useEffect(() => {
     peticionModal();
@@ -182,7 +170,7 @@ const ListDetails = () => {
       >
         <Box sx={style}>
           <iframe
-            srcdoc={pagina}
+            src={pagina}
             frameborder="0"
             title="página web elegida"
             style={{ width: "inherit", height: "inherit" }}

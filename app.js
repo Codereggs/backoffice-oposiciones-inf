@@ -12,17 +12,34 @@ var files1 = fs.readdirSync("./monitor/pages/1"),
   files2 = fs.readdirSync("./monitor/pages/2"),
   files3 = fs.readdirSync("./monitor/pages/3");
 
+let data = [];
+
 //Endpoints
 app.get("/infomonitor/page1", (req, res) => {
-  res.status(200).send(files1);
+  files1.forEach((e) => {
+    let objeto = { createdAt: e };
+    data.push(objeto);
+  });
+  res.status(200).send(data);
+  data = [];
 });
 
 app.get("/infomonitor/page2", (req, res) => {
-  res.status(200).send(files2);
+  files2.forEach((e) => {
+    let objeto = { createdAt: e };
+    data.push(objeto);
+  });
+  res.status(200).send(data);
+  data = [];
 });
 
 app.get("/infomonitor/page3", (req, res) => {
-  res.status(200).send(files3);
+  files3.forEach((e) => {
+    let objeto = { createdAt: e };
+    data.push(objeto);
+  });
+  res.status(200).send(data);
+  data = [];
 });
 
 app.post("/infomonitor/info", (req, res) => {
