@@ -23,9 +23,9 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "90vw",
-  height: "90vh",
-  bgcolor: "background.paper",
+  width: "70vw",
+  height: "70vh",
+  bgcolor: "white",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
@@ -90,7 +90,7 @@ const ListDetails = () => {
           <TableHead>
             <TableRow>
               <TableCell align="center">
-                <Typography variant="h5">Listado de errores</Typography>
+                <Typography variant="h5">Estados Monitor</Typography>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -98,9 +98,9 @@ const ListDetails = () => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="center">Error</TableCell>
+              <TableCell align="center">Estado</TableCell>
               <TableCell align="center">Fecha</TableCell>
-              <TableCell align="center">View</TableCell>
+              <TableCell align="center">Ver</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
