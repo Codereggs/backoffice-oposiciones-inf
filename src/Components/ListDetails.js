@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CgScreen } from "react-icons/cg";
 import PortalModal from "./Details/PortalModal";
 import TablePaginationActions from "./Details/TablePaginationActions";
