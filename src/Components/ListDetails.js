@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CgScreen } from "react-icons/cg";
 import PortalModal from "./Details/PortalModal";
 import TablePaginationActions from "./Details/TablePaginationActions";
@@ -36,13 +36,19 @@ const ListDetails = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [mockedRows, setMockedRows] = useState([
     {
-      0: "2021-08-28T18:23:35.000000Z",
+      id: 0,
+      createdAt: "2021-08-28T18:23:35.000000Z",
+      status: "true",
     },
     {
-      1: "2021-08-28T18:23:35.000000Z",
+      id: 1,
+      createdAt: "2021-08-28T18:23:35.000000Z",
+      status: "true",
     },
     {
-      2: "2021-08-28T18:23:35.000000Z",
+      id: 2,
+      createdAt: "2021-08-28T18:23:35.000000Z",
+      status: "true",
     },
   ]);
   const [pagina, setPagina] = useState(null);
@@ -84,6 +90,7 @@ const ListDetails = () => {
   const handleModal = () => setOpen(true);
   //Cerrar
   const handleClose = () => setOpen(false);
+  //Referencia
 
   return (
     <>
@@ -113,9 +120,18 @@ const ListDetails = () => {
                 )
               : mockedRows
             ).map((rowsData) => (
-              <TableRow key={rowsData.createdAt}>
-                <TableCell component="th" scope="row">
-                  {rowsData.name}
+              <TableRow key={rowsData.id}>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  align="center"
+                  style={{ fontWeight: "bold" }}
+                >
+                  {rowsData.status ? (
+                    <h4 style={{ color: "green" }}>OK</h4>
+                  ) : (
+                    <h4 style={{ color: "red" }}>ERROR - Página caída</h4>
+                  )}
                 </TableCell>
                 <TableCell align="center">{rowsData.createdAt}</TableCell>
                 <TableCell align="center">
