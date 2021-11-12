@@ -6,6 +6,11 @@ const Home = () => {
   const iconStyle = {
     fontSize: "5rem",
   };
+  localStorage.clear();
+  const handlePage = (num) => {
+    localStorage.setItem("num", `${num}`);
+  };
+
   let data = [
     {
       card1: (
@@ -15,6 +20,7 @@ const Home = () => {
             imagen={<MdWebAsset style={iconStyle} />}
             link={"/pagelist"}
             key={100}
+            action={() => handlePage(1)}
           />
         </Grid>
       ),
@@ -27,6 +33,8 @@ const Home = () => {
             imagen={<MdWebAsset style={iconStyle} />}
             link={"/pagelist"}
             key={200}
+            action={() => handlePage(2)}
+            page="2"
           />
         </Grid>
       ),
@@ -39,6 +47,8 @@ const Home = () => {
             imagen={<MdWebAsset style={iconStyle} />}
             link={"/pagelist"}
             key={300}
+            action={() => handlePage(3)}
+            page="3"
           />
         </Grid>
       ),

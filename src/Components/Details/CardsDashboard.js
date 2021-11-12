@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { NavLink } from "react-router-dom";
 
-export default function CardsDashboard({ titulo, imagen, link }) {
+export default function CardsDashboard({ titulo, imagen, link, action }) {
   const card = (
     <React.Fragment>
       <CardContent>
@@ -30,8 +30,9 @@ export default function CardsDashboard({ titulo, imagen, link }) {
               backgroundColor: "#9ac9fb",
               color: "#fff",
             }}
+            onClick={action}
           >
-            Go
+            Ver
           </Button>
         </NavLink>
       </CardActions>

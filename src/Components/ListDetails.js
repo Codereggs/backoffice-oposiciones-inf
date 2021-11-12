@@ -47,18 +47,21 @@ const ListDetails = () => {
     },
   ]);
   const [pagina, setPagina] = useState(null);
+  let localnum = localStorage.getItem("num");
 
   const peticionModal = async () => {
     const res = await axios.post(`http://localhost:8080/infomonitor/info`, {
         num: 1,
-        page: 1,
+        page: localnum,
       }),
       data = await res.data;
     setPagina(data);
   };
 
   const reqPage = async () => {
-    const res = await axios.get(`http://localhost:8080/infomonitor/page${"1"}`),
+    const res = await axios.get(
+        `http://localhost:8080/infomonitor/page${localnum}`
+      ),
       data = await res.data;
     setMockedRows(data);
   };
