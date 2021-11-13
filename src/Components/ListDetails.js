@@ -39,7 +39,7 @@ const style = {
 };
 
 const ListDetails = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [page, setPage] = useState(0);
   const [pos, setPos] = useState(null);
   const [tableValue, setTableValue] = useState();

@@ -3,7 +3,7 @@ import { Modal } from "@mui/material";
 import { Box } from "@mui/system";
 
 const PortalModal = ({ open, handleClose, style, pagina }) => {
-  return ReactDOM.createPortal(
+  return (
     <>
       <Modal
         open={open}
@@ -20,8 +20,7 @@ const PortalModal = ({ open, handleClose, style, pagina }) => {
           ></iframe>
         </Box>
       </Modal>
-    </>,
-    document.getElementById("modal")
+    </>
   );
 };
 
