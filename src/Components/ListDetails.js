@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   IconButton,
   Paper,
@@ -9,6 +10,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  TextField,
   Typography,
 } from "@mui/material";
 import axios from "axios";
@@ -16,6 +18,12 @@ import React, { useEffect, useState } from "react";
 import { CgScreen } from "react-icons/cg";
 import PortalModal from "./Details/PortalModal";
 import TablePaginationActions from "./Details/TablePaginationActions";
+import { Redirect } from "react-router-dom";
+import { VscDebugDisconnect } from "react-icons/vsc";
+import { DatePicker, LocalizationProvider } from "@mui/lab";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { Box } from "@mui/system";
+import { AiOutlineClose } from "react-icons/ai";
 
 const style = {
   position: "absolute",
@@ -33,34 +41,26 @@ const style = {
 const ListDetails = () => {
   const [open, setOpen] = React.useState(false);
   const [page, setPage] = useState(0);
+  const [pos, setPos] = useState(null);
+  const [value, setValue] = useState();
+  const [tablaF, setTablaF] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [mockedRows, setMockedRows] = useState([
-    {
-      id: 0,
-      createdAt: "2021-08-28T18:23:35.000000Z",
-      status: "true",
-    },
-    {
-      id: 1,
-      createdAt: "2021-08-28T18:23:35.000000Z",
-      status: "true",
-    },
-    {
-      id: 2,
-      createdAt: "2021-08-28T18:23:35.000000Z",
-      status: "true",
-    },
-  ]);
+  const [mockedRows, setMockedRows] = useState([]);
   const [pagina, setPagina] = useState(null);
   let localnum = localStorage.getItem("num");
 
-  const peticionModal = async () => {
-    const res = await axios.post(`http://localhost:8080/infomonitor/info`, {
-        num: 0,
-        page: localnum,
-      }),
-      data = await res.data;
-    setPagina(data);
+  const peticionModal = async (pos) => {
+    try {
+      const res = await axios.post(`http://localhost:8080/infomonitor/info`, {
+          num: pos,
+          page: localnum,
+        }),
+        data = await res.data;
+      if (data.includes("undefined")) return setPagina(null);
+      setPagina(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const reqPage = async () => {
@@ -70,11 +70,16 @@ const ListDetails = () => {
       data = await res.data;
     setMockedRows(data);
   };
+
   useEffect(() => {
-    peticionModal();
     reqPage();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setTablaF(mockedRows);
   }, []);
+
+  useEffect(() => {
+    peticionModal(pos);
+  }, [pos, peticionModal]);
+
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - mockedRows.length) : 0;
 
@@ -86,14 +91,75 @@ const ListDetails = () => {
     setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
   };
-  //Entrada para ver
-  const handleModal = () => setOpen(true);
-  //Cerrar
-  const handleClose = () => setOpen(false);
-  //Referencia
 
+  //Entrada para ver
+  const handleModal = (e) => {
+    setPos(e.target.id);
+    setOpen(true);
+  };
+  //Cerrar Modal
+  const handleClose = () => setOpen(false);
+
+  //Filtrar tabla
+  const filterTable = (valueR) => {
+    let search = mockedRows.filter((item) => {
+      if (item.createdAt.toString().includes(valueR)) {
+        return item;
+      }
+      return null;
+    });
+    setTablaF(search);
+  };
+
+  //Realizar peticion de vuelta
+  const secRequest = () => {
+    reqPage();
+    setTablaF(mockedRows);
+  };
+
+  //Verificar si ingresó a ver alguna página, de lo contrario volver a Home
+  if (localStorage.getItem("num") === null) return <Redirect to="/" />;
   return (
     <>
+      <Box
+        style={{
+          width: "30%",
+          alignSelf: "flex-end",
+          textAlign: "end",
+          paddingRight: "1rem",
+          margin: "1rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+            label="Fecha a buscar"
+            value={value}
+            onChange={(newValue) => {
+              if (!newValue) return secRequest();
+              let dia =
+                new Date(newValue).getDate().toString().length === 1
+                  ? "0" + new Date(newValue).getDate().toString()
+                  : new Date(newValue).getDate();
+
+              let mes = new Date(newValue).getMonth() + 1;
+              let anio = new Date(newValue).getFullYear();
+
+              let realV = anio + "-" + mes + "-" + dia;
+              setValue(newValue);
+              filterTable(realV);
+            }}
+            format="DD-MM-YYYY"
+            renderInput={(params) => <TextField {...params} />}
+          />
+          <IconButton>
+            <AiOutlineClose onClick={secRequest} />
+          </IconButton>
+        </LocalizationProvider>
+      </Box>
+
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -107,35 +173,46 @@ const ListDetails = () => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="center">Estado</TableCell>
-              <TableCell align="center">Fecha</TableCell>
-              <TableCell align="center">Ver</TableCell>
+              <TableCell align="center" style={{ fontWeight: "bold" }}>
+                Estado
+              </TableCell>
+              <TableCell align="center" style={{ fontWeight: "bold" }}>
+                Fecha
+              </TableCell>
+              <TableCell align="center" style={{ fontWeight: "bold" }}>
+                Hora
+              </TableCell>
+              <TableCell align="center" style={{ fontWeight: "bold" }}>
+                Ver
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
-              ? mockedRows.slice(
+              ? tablaF.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-              : mockedRows
+              : tablaF
             ).map((rowsData) => (
               <TableRow key={rowsData.id}>
-                <TableCell
-                  component="th"
-                  scope="row"
-                  align="center"
-                  style={{ fontWeight: "bold" }}
-                >
+                <TableCell align="center" style={{ fontWeight: "bold" }}>
                   {rowsData.status ? (
-                    <h4 style={{ color: "green" }}>OK</h4>
+                    <h4 style={{ color: "green", margin: "0" }}>OK</h4>
                   ) : (
-                    <h4 style={{ color: "red" }}>ERROR - Página caída</h4>
+                    <h4 style={{ color: "red", margin: "0" }}>ERROR</h4>
                   )}
                 </TableCell>
                 <TableCell align="center">{rowsData.createdAt}</TableCell>
+                <TableCell align="center">{rowsData.hour}</TableCell>
                 <TableCell align="center">
-                  <IconButton children={<CgScreen />} onClick={handleModal} />
+                  {rowsData.status ? (
+                    <IconButton>
+                      <CgScreen onClick={handleModal} id={rowsData.id} />
+                    </IconButton>
+                  ) : (
+                    <VscDebugDisconnect style={{ fontSize: "2em" }} />
+                  )}
                 </TableCell>
               </TableRow>
             ))}

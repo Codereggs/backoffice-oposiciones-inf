@@ -26,7 +26,6 @@ app.get("/infomonitor/page3", (req, res) => {
 app.post("/infomonitor/info", (req, res) => {
   var num = req.body;
   var direction = directionMonitor(num.num, num.page);
-  console.log(direction);
   res.status(200).send(direction);
 });
 
@@ -52,12 +51,14 @@ const accesarPage = (num) => {
       fs.existsSync(`./monitor/pages/${num}/${e}/index.html`)
         ? allData.push({
             id: searchPage.indexOf(e),
-            createdAt: e,
+            createdAt: e.split("_")[0],
+            hour: e.split("_")[1],
             status: true,
           })
         : allData.push({
             id: searchPage.indexOf(e),
-            createdAt: e,
+            createdAt: e.split("_")[0],
+            hour: e.split("_")[1],
             status: false,
           });
     } catch (err) {
