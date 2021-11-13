@@ -30,8 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "nodemon app.js",
-    "proxy": "http://localhost:8080"
+    "dev": "nodemon app.js"
   },
   "eslintConfig": {
     "extends": [
