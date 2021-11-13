@@ -1,4 +1,3 @@
-import ReactDOM from "react-dom";
 import { Modal } from "@mui/material";
 import { Box } from "@mui/system";
 
