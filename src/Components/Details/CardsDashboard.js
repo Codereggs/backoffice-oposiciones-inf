@@ -5,7 +5,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 export default function CardsDashboard({ titulo, imagen, link, action, desc }) {
   const card = (
@@ -23,16 +23,18 @@ export default function CardsDashboard({ titulo, imagen, link, action, desc }) {
           {titulo}
         </Typography>
         {imagen}
-        <Typography
-          variant="p"
-          component="p"
-          style={{
-            fontSize: "1em",
-            margin: "0.5rem 1rem",
-          }}
-        >
-          {desc}
-        </Typography>
+        <Link to={desc} style={{ textDecoration: "none", color: "#003f72" }}>
+          <Typography
+            variant="p"
+            component="p"
+            style={{
+              fontSize: "1em",
+              margin: "0.5rem 1rem",
+            }}
+          >
+            {desc}
+          </Typography>
+        </Link>
       </CardContent>
       <CardActions>
         <NavLink
