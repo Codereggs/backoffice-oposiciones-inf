@@ -84,6 +84,8 @@ const ListDetails = () => {
   }, []);
 
   useEffect(() => {
+    if (pos === null) return;
+    console.log(pos);
     peticionModal(pos);
   }, [pos, peticionModal]);
 
@@ -101,11 +103,19 @@ const ListDetails = () => {
 
   //Entrada para ver
   const handleModal = (e) => {
-    setPos(e.target.id);
-    setOpen(true);
+    if (!e.target.id) {
+      setPos(e.target.querySelector("svg").id);
+      return setOpen(true);
+    } else {
+      setPos(e.target.id);
+      setOpen(true);
+    }
   };
   //Cerrar Modal
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setPos(null);
+  };
 
   //Filtrar tabla
   const filterTable = (rv) => {
@@ -218,8 +228,8 @@ const ListDetails = () => {
                 <TableCell align="center">{rowsData.hour}</TableCell>
                 <TableCell align="center">
                   {rowsData.status ? (
-                    <IconButton onClick={handleModal} id={rowsData.id}>
-                      <CgScreen />
+                    <IconButton onClick={handleModal}>
+                      <CgScreen id={rowsData.id} />
                     </IconButton>
                   ) : (
                     <VscDebugDisconnect style={{ fontSize: "2em" }} />

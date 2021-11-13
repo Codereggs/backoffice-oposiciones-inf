@@ -11,12 +11,14 @@ const PortalModal = ({ open, handleClose, style, pagina }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <iframe
-            src={`${pagina}`}
-            frameborder="0"
-            title="página web elegida"
-            style={{ width: "inherit", height: "inherit" }}
-          ></iframe>
+          {pagina && (
+            <iframe
+              src={`${pagina}`}
+              frameborder="0"
+              title="página web elegida"
+              style={{ width: "inherit", height: "inherit" }}
+            ></iframe>
+          )}
         </Box>
       </Modal>
     </>
