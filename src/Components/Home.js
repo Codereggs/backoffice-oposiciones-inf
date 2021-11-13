@@ -15,7 +15,9 @@ const Home = () => {
   };
 
   const namesReq = async () => {
-    const req = await axios.get("/infomonitor/pagenames"),
+    const req = await axios.get(
+        "https://express-app-backoffice.herokuapp.com/infomonitor/pagenames"
+      ),
       data = await req.data;
     let newData = data.split("\n");
     newData.pop();
