@@ -113,10 +113,10 @@ const ListDetails = () => {
 
   //Realizar peticion de vuelta
   const secRequest = () => {
+    setValue(null);
     reqPage();
     setTablaF(mockedRows);
   };
-
   //Verificar si ingresó a ver alguna página, de lo contrario volver a Home
   if (localStorage.getItem("num") === null) return <Redirect to="/" />;
   return (
@@ -135,8 +135,12 @@ const ListDetails = () => {
       >
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
+            disableFuture
+            inputFormat="dd/MM/yyyy"
             label="Fecha a buscar"
             value={value}
+            clearable="true"
+            clearText="Clear"
             onChange={(newValue) => {
               if (!newValue) return secRequest();
               let dia =
@@ -151,7 +155,6 @@ const ListDetails = () => {
               setValue(newValue);
               filterTable(realV);
             }}
-            format="DD-MM-YYYY"
             renderInput={(params) => <TextField {...params} />}
           />
           <IconButton>
