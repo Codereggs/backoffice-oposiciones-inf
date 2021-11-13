@@ -48,12 +48,15 @@ const ListDetails = () => {
   const [mockedRows, setMockedRows] = useState([]);
   const [pagina, setPagina] = useState(null);
 
+  //URL
+  const URL = "https://express-app-backoffice.herokuapp.com";
+
   //Obtener num de pagina
   let localnum = localStorage.getItem("num");
 
   const peticionModal = async (pos) => {
     try {
-      const res = await axios.post(`http://localhost:8080/infomonitor/info`, {
+      const res = await axios.post(`${URL}/infomonitor/info`, {
           num: pos,
           page: localnum,
         }),
@@ -67,9 +70,7 @@ const ListDetails = () => {
 
   const reqPage = async () => {
     try {
-      const res = await axios.get(
-          `http://localhost:8080/infomonitor/page${localnum}`
-        ),
+      const res = await axios.get(`${URL}/infomonitor/page${localnum}`),
         data = await res.data;
       setMockedRows(data);
       setTablaF(data);
