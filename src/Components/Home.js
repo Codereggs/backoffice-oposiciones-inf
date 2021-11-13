@@ -14,12 +14,11 @@ const Home = () => {
   let data = [
     {
       card1: (
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={3} key={100}>
           <CardsDashboard
             titulo={"Página 1"}
             imagen={<MdWebAsset style={iconStyle} />}
             link={"/pagelist"}
-            key={100}
             action={() => handlePage(1)}
           />
         </Grid>
@@ -27,12 +26,11 @@ const Home = () => {
     },
     {
       card2: (
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={3} key={200}>
           <CardsDashboard
             titulo={"Página 2"}
             imagen={<MdWebAsset style={iconStyle} />}
             link={"/pagelist"}
-            key={200}
             action={() => handlePage(2)}
             page="2"
           />
@@ -41,12 +39,11 @@ const Home = () => {
     },
     {
       card3: (
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={3} key={300}>
           <CardsDashboard
             titulo={"Página 3"}
             imagen={<MdWebAsset style={iconStyle} />}
             link={"/pagelist"}
-            key={300}
             action={() => handlePage(3)}
             page="3"
           />

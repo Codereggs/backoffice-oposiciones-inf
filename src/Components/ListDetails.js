@@ -42,11 +42,13 @@ const ListDetails = () => {
   const [open, setOpen] = React.useState(false);
   const [page, setPage] = useState(0);
   const [pos, setPos] = useState(null);
-  const [value, setValue] = useState();
+  const [tableValue, setTableValue] = useState();
   const [tablaF, setTablaF] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [mockedRows, setMockedRows] = useState([]);
   const [pagina, setPagina] = useState(null);
+
+  //Obtener num de pagina
   let localnum = localStorage.getItem("num");
 
   const peticionModal = async (pos) => {
@@ -64,16 +66,20 @@ const ListDetails = () => {
   };
 
   const reqPage = async () => {
-    const res = await axios.get(
-        `http://localhost:8080/infomonitor/page${localnum}`
-      ),
-      data = await res.data;
-    setMockedRows(data);
+    try {
+      const res = await axios.get(
+          `http://localhost:8080/infomonitor/page${localnum}`
+        ),
+        data = await res.data;
+      setMockedRows(data);
+      setTablaF(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
     reqPage();
-    setTablaF(mockedRows);
   }, []);
 
   useEffect(() => {
@@ -101,22 +107,37 @@ const ListDetails = () => {
   const handleClose = () => setOpen(false);
 
   //Filtrar tabla
-  const filterTable = (valueR) => {
+  const filterTable = (rv) => {
     let search = mockedRows.filter((item) => {
-      if (item.createdAt.toString().includes(valueR)) {
+      if (item.createdAt.toString().includes(rv)) {
         return item;
       }
       return null;
     });
+    console.log(page, rowsPerPage);
     setTablaF(search);
   };
 
   //Realizar peticion de vuelta
   const secRequest = () => {
-    setValue(null);
+    setTableValue(null);
     reqPage();
     setTablaF(mockedRows);
   };
+
+  //Manejar Fecha
+  const handleChangeDatePicker = async (newValue) => {
+    let dia =
+      new Date(newValue).getDate().toString().length === 1
+        ? "0" + new Date(newValue).getDate().toString()
+        : new Date(newValue).getDate();
+    let mes = new Date(newValue).getMonth() + 1;
+    let anio = new Date(newValue).getFullYear();
+    let realV = anio + "-" + mes + "-" + dia;
+    setTableValue(newValue);
+    filterTable(realV);
+  };
+
   //Verificar si ingresó a ver alguna página, de lo contrario volver a Home
   if (localStorage.getItem("num") === null) return <Redirect to="/" />;
   return (
@@ -135,30 +156,16 @@ const ListDetails = () => {
       >
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
-            disableFuture
+            disableFuture={true}
             inputFormat="dd/MM/yyyy"
             label="Fecha a buscar"
-            value={value}
-            clearable="true"
-            clearText="Clear"
-            onChange={(newValue) => {
-              if (!newValue) return secRequest();
-              let dia =
-                new Date(newValue).getDate().toString().length === 1
-                  ? "0" + new Date(newValue).getDate().toString()
-                  : new Date(newValue).getDate();
-
-              let mes = new Date(newValue).getMonth() + 1;
-              let anio = new Date(newValue).getFullYear();
-
-              let realV = anio + "-" + mes + "-" + dia;
-              setValue(newValue);
-              filterTable(realV);
-            }}
+            value={tableValue}
+            clearable={true}
+            onChange={handleChangeDatePicker}
             renderInput={(params) => <TextField {...params} />}
           />
-          <IconButton>
-            <AiOutlineClose onClick={secRequest} />
+          <IconButton onClick={secRequest}>
+            <AiOutlineClose />
           </IconButton>
         </LocalizationProvider>
       </Box>
@@ -210,8 +217,8 @@ const ListDetails = () => {
                 <TableCell align="center">{rowsData.hour}</TableCell>
                 <TableCell align="center">
                   {rowsData.status ? (
-                    <IconButton>
-                      <CgScreen onClick={handleModal} id={rowsData.id} />
+                    <IconButton onClick={handleModal} id={rowsData.id}>
+                      <CgScreen />
                     </IconButton>
                   ) : (
                     <VscDebugDisconnect style={{ fontSize: "2em" }} />
