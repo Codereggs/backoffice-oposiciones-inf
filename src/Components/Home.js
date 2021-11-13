@@ -1,8 +1,11 @@
 import Grid from "@material-ui/core/Grid";
 import CardsDashboard from "./Details/CardsDashboard";
 import { MdWebAsset } from "react-icons/md";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Home = () => {
+  const [pageNames, setPageNames] = useState([]);
   const iconStyle = {
     fontSize: "5rem",
   };
@@ -11,12 +14,25 @@ const Home = () => {
     localStorage.setItem("num", `${num}`);
   };
 
+  const namesReq = async () => {
+    const req = await axios.get("/infomonitor/pagenames"),
+      data = await req.data;
+    let newData = data.split("\n");
+    newData.pop();
+    return setPageNames(newData);
+  };
+
+  useEffect(() => {
+    namesReq();
+  }, []);
+
   let data = [
     {
       card1: (
         <Grid item xs={12} sm={3} key={100}>
           <CardsDashboard
             titulo={"Página 1"}
+            desc={pageNames[0]}
             imagen={<MdWebAsset style={iconStyle} />}
             link={"/pagelist"}
             action={() => handlePage(1)}
@@ -29,6 +45,7 @@ const Home = () => {
         <Grid item xs={12} sm={3} key={200}>
           <CardsDashboard
             titulo={"Página 2"}
+            desc={pageNames[1]}
             imagen={<MdWebAsset style={iconStyle} />}
             link={"/pagelist"}
             action={() => handlePage(2)}
@@ -42,6 +59,7 @@ const Home = () => {
         <Grid item xs={12} sm={3} key={300}>
           <CardsDashboard
             titulo={"Página 3"}
+            desc={pageNames[2]}
             imagen={<MdWebAsset style={iconStyle} />}
             link={"/pagelist"}
             action={() => handlePage(3)}
@@ -53,9 +71,8 @@ const Home = () => {
   ];
 
   const style = {
+    overflow: "auto",
     textAlign: "center",
-    width: "100vw",
-    height: "100vh",
     backgroundColor: "var(--color-primary)",
     color: "#fff",
   };
@@ -70,9 +87,17 @@ const Home = () => {
   };
 
   return (
-    <div style={style}>
+    <div className="divInicial" style={style}>
       <main style={mainStyle}>
-        <Grid container spacing={2} style={{ justifyContent: "center" }}>
+        <Grid
+          container
+          spacing={2}
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
           {data.map((el) => {
             return Object.values(el)[0];
           })}

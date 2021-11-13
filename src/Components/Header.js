@@ -7,11 +7,11 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, marginBottom: "" }}>
       <AppBar position="static">
-        <Toolbar variant="dense">
+        <Toolbar variant="dense" sx={{ bgcolor: "#e2e2e2" }}>
           <Typography variant="h6" color="inherit" component="div">
-            <Link to="/" style={{ textDecoration: "none", color: "#fff" }}>
+            <Link to="/" style={{ textDecoration: "none", color: "#003f72" }}>
               Backoffice
             </Link>
           </Typography>

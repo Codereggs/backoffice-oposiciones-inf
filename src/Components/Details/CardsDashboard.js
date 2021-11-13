@@ -7,14 +7,32 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { NavLink } from "react-router-dom";
 
-export default function CardsDashboard({ titulo, imagen, link, action }) {
+export default function CardsDashboard({ titulo, imagen, link, action, desc }) {
   const card = (
-    <React.Fragment>
-      <CardContent>
+    <>
+      <CardContent
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          wordBreak: "break-word",
+        }}
+      >
         <Typography variant="h5" component="div" gutterBottom>
           {titulo}
         </Typography>
         {imagen}
+        <Typography
+          variant="p"
+          component="p"
+          style={{
+            fontSize: "1em",
+            margin: "0.5rem 1rem",
+          }}
+        >
+          {desc}
+        </Typography>
       </CardContent>
       <CardActions>
         <NavLink
@@ -27,8 +45,8 @@ export default function CardsDashboard({ titulo, imagen, link, action }) {
             variant="contained"
             style={{
               margin: "0 auto",
-              backgroundColor: "#9ac9fb",
-              color: "#fff",
+              backgroundColor: "#003f72",
+              color: "#e2e2e2",
             }}
             onClick={action}
           >
@@ -36,7 +54,7 @@ export default function CardsDashboard({ titulo, imagen, link, action }) {
           </Button>
         </NavLink>
       </CardActions>
-    </React.Fragment>
+    </>
   );
   return (
     <Box sx={{ maxWidth: 200, margin: "0 auto" }}>
