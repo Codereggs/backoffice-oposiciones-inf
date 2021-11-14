@@ -68,7 +68,7 @@ function App() {
     window.localStorage.removeItem("token");
     setLogueado(false);
   };
-
+  localStorage.clear();
   return (
     <div className="App">
       <Router>

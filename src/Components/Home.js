@@ -10,7 +10,7 @@ const Home = () => {
   const iconStyle = {
     fontSize: "5rem",
   };
-  localStorage.clear();
+
   const handlePage = (num) => {
     localStorage.setItem("num", `${num}`);
   };
