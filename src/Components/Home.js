@@ -3,7 +3,6 @@ import CardsDashboard from "./Details/CardsDashboard";
 import { MdWebAsset } from "react-icons/md";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 
 const Home = () => {
   const [pageNames, setPageNames] = useState([]);

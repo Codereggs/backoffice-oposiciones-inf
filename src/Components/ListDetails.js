@@ -18,7 +18,6 @@ import React, { useEffect, useState } from "react";
 import { CgScreen } from "react-icons/cg";
 import PortalModal from "./Details/PortalModal";
 import TablePaginationActions from "./Details/TablePaginationActions";
-import { Redirect } from "react-router-dom";
 import { VscDebugDisconnect } from "react-icons/vsc";
 import { DatePicker, LocalizationProvider } from "@mui/lab";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
