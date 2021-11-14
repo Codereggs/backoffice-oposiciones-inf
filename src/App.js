@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -54,7 +55,7 @@ function App() {
       window.localStorage.setItem("token", resData.response);
     };
     axiosData();
-  }, [tlfSize, logueando]);
+  }, [logueando]);
 
   //Verificar si estoy activo o no
   useEffect(() => {
