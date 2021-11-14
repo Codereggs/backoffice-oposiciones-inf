@@ -53,7 +53,7 @@ function App() {
       window.localStorage.setItem("token", resData.response);
     };
     axiosData();
-  }, [logueando]);
+  }, [tlfSize, logueando]);
 
   //Verificar si estoy activo o no
   useEffect(() => {
