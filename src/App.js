@@ -68,7 +68,8 @@ function App() {
     window.localStorage.removeItem("token");
     setLogueado(false);
   };
-  localStorage.clear();
+
+  if (setLogueado) return <Redirect to="/dashboard" />;
   return (
     <div className="App">
       <Router>
