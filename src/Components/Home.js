@@ -3,6 +3,7 @@ import CardsDashboard from "./Details/CardsDashboard";
 import { MdWebAsset } from "react-icons/md";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 const Home = () => {
   const [pageNames, setPageNames] = useState([]);
@@ -27,7 +28,8 @@ const Home = () => {
   useEffect(() => {
     namesReq();
   }, []);
-
+  //Verificar si ingresó a ver alguna página, de lo contrario volver a Home
+  if (localStorage.getItem("token") === null) return <Redirect to="/" />;
   let data = [
     {
       card1: (

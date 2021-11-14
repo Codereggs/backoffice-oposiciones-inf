@@ -11,7 +11,10 @@ const Header = () => {
       <AppBar position="static">
         <Toolbar variant="dense" sx={{ bgcolor: "#e2e2e2" }}>
           <Typography variant="h6" color="inherit" component="div">
-            <Link to="/" style={{ textDecoration: "none", color: "#003f72" }}>
+            <Link
+              to="/dashboard"
+              style={{ textDecoration: "none", color: "#003f72" }}
+            >
               Monitoreo de Páginas
             </Link>
           </Typography>

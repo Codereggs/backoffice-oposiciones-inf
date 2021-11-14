@@ -11,3 +11,8 @@
     padding-top: 10rem;
   }
 }
+
+div .MuiBox-root {
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+}

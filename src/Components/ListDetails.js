@@ -150,7 +150,7 @@ const ListDetails = () => {
   };
 
   //Verificar si ingresó a ver alguna página, de lo contrario volver a Home
-  if (localStorage.getItem("num") === null) return <Redirect to="/" />;
+  if (localStorage.getItem("token") === null) return <Redirect to="/" />;
   return (
     <>
       <Box
