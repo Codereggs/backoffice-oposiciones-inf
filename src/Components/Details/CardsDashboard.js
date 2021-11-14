@@ -23,22 +23,17 @@ export default function CardsDashboard({ titulo, imagen, link, action, desc }) {
           {titulo}
         </Typography>
         {imagen}
-        <Link
-          to={{ pathname: desc }}
-          target="_blank"
-          style={{ textDecoration: "none", color: "#003f72" }}
+        <Typography
+          variant="p"
+          component="p"
+          style={{
+            fontSize: "1em",
+            margin: "0.5rem 1rem",
+            color: "#003f72",
+          }}
         >
-          <Typography
-            variant="p"
-            component="p"
-            style={{
-              fontSize: "1em",
-              margin: "0.5rem 1rem",
-            }}
-          >
-            {desc}
-          </Typography>
-        </Link>
+          {desc}
+        </Typography>
       </CardContent>
       <CardActions>
         <NavLink
