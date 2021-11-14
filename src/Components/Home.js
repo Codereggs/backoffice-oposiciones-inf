@@ -28,8 +28,7 @@ const Home = () => {
   useEffect(() => {
     namesReq();
   }, []);
-  //Verificar si ingresó a ver alguna página, de lo contrario volver a Home
-  if (localStorage.getItem("token") === null) return <Redirect to="/" />;
+
   let data = [
     {
       card1: (
@@ -89,6 +88,9 @@ const Home = () => {
     marginTop: "2rem",
     height: "70vh",
   };
+
+  //Verificar si ingresó a ver alguna página, de lo contrario volver a Home
+  if (!localStorage.getItem("token")) return (window.location.href = "/");
 
   return (
     <div className="divInicial" style={style}>

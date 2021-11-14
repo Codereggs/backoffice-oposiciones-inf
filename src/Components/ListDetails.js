@@ -149,8 +149,8 @@ const ListDetails = () => {
     filterTable(realV);
   };
 
-  //Verificar si ingresó a ver alguna página, de lo contrario volver a Home
-  if (localStorage.getItem("token") === null) return <Redirect to="/" />;
+  if (!localStorage.getItem("token")) return (window.location.href = "/");
+
   return (
     <>
       <Box

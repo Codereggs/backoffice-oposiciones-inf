@@ -69,7 +69,6 @@ function App() {
     setLogueado(false);
   };
 
-  if (setLogueado) return <Redirect to="/dashboard" />;
   return (
     <div className="App">
       <Router>
