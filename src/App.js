@@ -76,7 +76,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header />
+        <Header logueado={logueado} />
         <Switch>
           <Route path="/monitor">
             <ListDetails />
