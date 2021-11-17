@@ -36,7 +36,7 @@ const Home = () => {
             titulo={"Página 1"}
             desc={pageNames[0]}
             imagen={<MdWebAsset style={iconStyle} />}
-            link={"/pagelist"}
+            link={"/monitor"}
             action={() => handlePage(1)}
           />
         </Grid>
@@ -49,7 +49,7 @@ const Home = () => {
             titulo={"Página 2"}
             desc={pageNames[1]}
             imagen={<MdWebAsset style={iconStyle} />}
-            link={"/pagelist"}
+            link={"/monitor"}
             action={() => handlePage(2)}
             page="2"
           />
@@ -63,7 +63,7 @@ const Home = () => {
             titulo={"Página 3"}
             desc={pageNames[2]}
             imagen={<MdWebAsset style={iconStyle} />}
-            link={"/pagelist"}
+            link={"/monitor"}
             action={() => handlePage(3)}
             page="3"
           />

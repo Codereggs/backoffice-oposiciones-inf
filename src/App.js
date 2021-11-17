@@ -19,6 +19,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 function App() {
   const [logueando, setLogueando] = useState(null);
   const [logueado, setLogueado] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   let tlfSize = useMediaQuery("(max-width: 575px)");
 
@@ -38,10 +39,12 @@ function App() {
 
   useEffect(() => {
     if (logueando === null) return;
+    setLoading(true);
     const axiosData = async () => {
       let url =
         "https://express-app-backoffice.herokuapp.com/infomonitor/login";
       const [resData] = await Promise.all([postUser(url, logueando)]);
+      setLoading(false);
       if (!resData) return;
       if (resData.status < 200 || resData.status > 299)
         return tlfSize
@@ -51,6 +54,7 @@ function App() {
               title: "Ha ocurrido un error.",
               text: resData.data,
             });
+
       setLogueado(true);
       window.localStorage.setItem("token", resData.response);
     };
@@ -74,7 +78,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/pagelist">
+          <Route path="/monitor">
             <ListDetails />
           </Route>
           <Route path="/dashboard">
@@ -82,7 +86,7 @@ function App() {
           </Route>
           <Route path="/">
             {logueado && <Redirect to="/dashboard" />}
-            <Login setLogueando={setLogueando} />
+            <Login setLogueando={setLogueando} loading={loading} />
           </Route>
         </Switch>
         <Footer />

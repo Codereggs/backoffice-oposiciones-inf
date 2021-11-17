@@ -1,8 +1,8 @@
 import React from "react";
 import { useFormik } from "formik";
-import { Alert, Button, TextField } from "@mui/material";
+import { Alert, Button, CircularProgress, TextField } from "@mui/material";
 
-const Login = ({ setLogueando }) => {
+const Login = ({ setLogueando, loading }) => {
   const validate = (values) => {
     const errors = {};
     if (!values.email) {
@@ -80,18 +80,22 @@ const Login = ({ setLogueando }) => {
         {formik.errors.password && (
           <Alert severity="error">{formik.errors.password}</Alert>
         )}
-        <Button
-          type="submit"
-          sx={{
-            marginTop: "2rem",
-            borderRadius: "5px",
-            color: "#e2e2e2",
-            backgroundColor: "#003f72",
-          }}
-          variant="contained"
-        >
-          Enviar
-        </Button>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <Button
+            type="submit"
+            sx={{
+              marginTop: "2rem",
+              borderRadius: "5px",
+              color: "#e2e2e2",
+              backgroundColor: "#003f72",
+            }}
+            variant="contained"
+          >
+            Enviar
+          </Button>
+        )}
       </form>
     </div>
   );

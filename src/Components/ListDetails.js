@@ -48,6 +48,7 @@ const ListDetails = () => {
   const [pagina, setPagina] = useState(null);
 
   //URL
+
   const URL = "https://express-app-backoffice.herokuapp.com";
 
   //Obtener num de pagina
@@ -60,8 +61,8 @@ const ListDetails = () => {
           page: localnum,
         }),
         data = await res.data;
-      if (data.includes("undefined")) return setPagina(null);
-      setPagina(data);
+      if (!data.pagina) return setPagina(data.log);
+      setPagina(data.pagina);
     } catch (err) {
       console.error(err);
     }
@@ -83,9 +84,9 @@ const ListDetails = () => {
   }, []);
 
   useEffect(() => {
-    if (pos === null) return;
-    console.log(pos);
+    if (!pos) return;
     peticionModal(pos);
+    setOpen(true);
   }, [pos, peticionModal]);
 
   const emptyRows =
@@ -102,18 +103,13 @@ const ListDetails = () => {
 
   //Entrada para ver
   const handleModal = (e) => {
-    if (!e.target.id) {
-      setPos(e.target.querySelector("svg").id);
-      return setOpen(true);
-    } else {
-      setPos(e.target.id);
-      setOpen(true);
-    }
+    setPos(e.target.id);
   };
   //Cerrar Modal
   const handleClose = () => {
     setOpen(false);
     setPos(null);
+    setPagina(null);
   };
 
   //Filtrar tabla
@@ -124,7 +120,6 @@ const ListDetails = () => {
       }
       return null;
     });
-    console.log(page, rowsPerPage);
     setTablaF(search);
   };
 
@@ -227,11 +222,13 @@ const ListDetails = () => {
                 <TableCell align="center">{rowsData.hour}</TableCell>
                 <TableCell align="center">
                   {rowsData.status ? (
-                    <IconButton onClick={handleModal}>
+                    <IconButton onClick={handleModal} id={rowsData.id}>
                       <CgScreen id={rowsData.id} />
                     </IconButton>
                   ) : (
-                    <VscDebugDisconnect style={{ fontSize: "2em" }} />
+                    <IconButton onClick={handleModal} id={rowsData.id}>
+                      <VscDebugDisconnect id={rowsData.id} />
+                    </IconButton>
                   )}
                 </TableCell>
               </TableRow>

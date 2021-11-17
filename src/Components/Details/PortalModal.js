@@ -14,8 +14,8 @@ const PortalModal = ({ open, handleClose, style, pagina }) => {
           {pagina && (
             <iframe
               src={`${pagina}`}
-              frameborder="0"
-              title="página web elegida"
+              frameBorder="0"
+              title={"Página / Log"}
               style={{ width: "inherit", height: "inherit" }}
             ></iframe>
           )}
